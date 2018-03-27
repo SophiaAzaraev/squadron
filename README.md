@@ -5,7 +5,6 @@ maze and groupwork project
 Sophia Azaraev
 Sophie Watwood
 
-<<<<<<< HEAD
 ## statement of problem
 Returns Boolean value of the statement “the maze is navigable, having at least one legal
 travel path that is continuous from designated start-point to existing treasure”
@@ -18,4 +17,6 @@ Legal is:
 
 ## recursive abstraction
    we don't know yet
-
+Tentative:
+I think maybe we can split the problem into steps/turns. 
+Take step, check if it is legal. If legal, take another step. 
