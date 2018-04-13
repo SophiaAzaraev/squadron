@@ -54,3 +54,5 @@ Take step, check if it is legal. If legal, take another step.
 to "Check:" take a step.
     if it is illegal, turn right, check step. 
 
+## Known Bugs
+assume everything is a bug. 
