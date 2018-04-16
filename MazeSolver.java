@@ -1,28 +1,56 @@
 public class MazeSolver {
+
 	private boolean isMazeSolved;
 	public Maze progress;
-	public MazeSolver(String sourceFilename, int explorerRank, int explorerFile) throws 
-		java.io.FileNotFoundException{ 
-  		 
-  		progress = new Maze(sourceFilename, explorerRank, explorerFile);
-		System.out.println("testing. created inProgress");
-		pathFinder();
-		System.out.println("Finished Path! Treasure: " + isMazeSolved);
+        private Displayer displayer;
+        private int displayCount; // num. of moves
+
+        /**
+         * To implement maze solver, call in Terminal:
+         * java MazaSolver mazeFile.name rank# file #
+         **/
+	public MazeSolver(Displayer displayer){
+                this.displayer = displayer;
 	}
+
 	public boolean getIsMazeSolved() {
 		return isMazeSolved;
 	}
+
 	public String toString() {
 		return progress.toString();
 	}
-    public void pathFinder() {
-		if (progress.explorerIsOnA() == 0) { 
-	    	isMazeSolved = true;
-			System.out.println(isMazeSolved);
+        
+        private final static int[] DIRECTIONS = {
+                                                  Maze.EAST,
+                                                  Maze.NORTH,
+						  Maze.WEST,
+                                                  Maze.SOUTH,
+                                                };
+
+        public boolean pathFinder(Maze candidate) {
+                if (displayer !=null)
+		displayer.atTopOfWindow(candidate
+		    +String.format(" %5d moves", displayCount++)
+		    +System.lineSeparator());
+
+		if(candidate.explorerIsOnA() == Maze.WALL) return false;
+                if(candidate.explorerIsOnA() == Maze.TREASURE) return true;
+
+		//recursive
+		Maze snapshot = new Maze( candidate);
+		for( int look : DIRECTIONS) {
+		    candidate.dropA( Maze.WALL); 
+
+		candidate.go( look);
+		if( pathFinder( candidate)) return true;
+
+		candidate = new Maze(snapshot);
+			
+
 		}
-		else{
-			System.out.println("No treasure here");
-		}	
+                return false;	
     }
-    
+
+
 }
